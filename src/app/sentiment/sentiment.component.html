@@ -1,0 +1,67 @@
+<p-card
+class="text-center"
+  [header]="sentiment.name"
+  [subheader]="sentiment.code"
+  [style]="{ 'margin-bottom': '1em' }"
+>
+<ng-template pTemplate="header">
+  <div class="grid pl-2 pr-2 mt-2">
+    <div class="col-12 bg-blue-50"></div>
+  </div>
+</ng-template>
+  <ng-container
+    *ngIf="
+      sentiment.data !== undefined && sentiment.data.length > 0;
+      else noDataBlock
+    "
+  >
+    <div class="grid">
+      <div class="col-4 border-1" *ngFor="let data of sentiment.data">
+        <div class="grid">
+          <div class="col-8">
+            <div class="font-bold text-center m-1">
+              {{ data.date | date: "MMMM" | uppercase }}
+            </div>
+            <div class="font-semibold m-1">Change: {{ data.change | sign }}</div>
+            <div class="font-semibold m-1">
+              MSPR: {{ data.mspr | number: "1.0-2" }}
+            </div>
+          </div>
+          <div class="col-4">
+            <i
+              class="m-1 pi font-bold"
+              [class]="
+                data.isPositive
+                  ? 'pi-arrow-up text-green-500'
+                  : 'pi-arrow-down text-red-500'
+              "
+              style="font-size: 4rem"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noDataBlock>
+    <div class="col-12 text-center">
+      No data to display for the last three months
+    </div>
+  </ng-template>
+</p-card>
+
+<button
+  pButton
+  pRipple
+  pButton
+  pRipple
+  type="button"
+  class="p-button-raised p-button-secondary p-button-text font-semibold"
+  routerLink=""
+>
+  <span class="vertical-align-bottom"
+    ><i class="pi pi-arrow-circle-left text-2xl vertical-align-bottom"></i
+  ></span>
+  <span class="vertical-align-top">
+    &nbsp; &nbsp; &nbsp;Back to the list of stocks</span
+  >
+</button>

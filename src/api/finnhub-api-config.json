@@ -1,0 +1,8 @@
+{
+  "$schema": "../../node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
+  "indexFile": true,
+  "input": "src/api/swagger.json",
+  "module": "FinnHubApiModule",
+  "configuration": "FinnHubApiConfiguration",
+  "serviceSuffix": "ApiService"
+}

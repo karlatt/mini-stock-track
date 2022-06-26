@@ -1,0 +1,84 @@
+<p-card
+class="text-center"
+  [header]="stock.name"
+  [subheader]="stock.code"
+  [style]="{ 'margin-bottom': '1em' }"
+>
+  <ng-template pTemplate="header">
+    <div class="grid pl-2 pr-2">
+      <div class="col-11 bg-blue-50"></div>
+      <div
+        class="col-1 bg-blue-50 text-right cursor-pointer font-medium"
+        (click)="sendRemoveSignal(stock.code)"
+      >
+        X
+      </div>
+    </div>
+  </ng-template>
+  <div class="grid">
+    <div class="col-5">
+      <div class="m-1 font-semibold">
+        Change today: {{ stock.change | prefsuffix: true }}
+      </div>
+      <div class="m-1 font-semibold">
+        Current Price :
+        {{
+          stock.currentPrice
+            | currency
+              : currencyPipeParameters.symbol
+              : currencyPipeParameters.display
+              : currencyPipeParameters.format
+        }}
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="m-1 font-semibold">
+        Opening Price :
+        {{
+          stock.openingPrice
+            | currency
+              : currencyPipeParameters.symbol
+              : currencyPipeParameters.display
+              : currencyPipeParameters.format
+        }}
+      </div>
+      <div class="m-1 font-semibold">
+        Hight Price :
+        {{
+          stock.highPrice
+            | currency
+              : currencyPipeParameters.symbol
+              : currencyPipeParameters.display
+              : currencyPipeParameters.format
+        }}
+      </div>
+    </div>
+    <div class="col-2">
+      <i
+        class="m-1 pi font-bold "
+        [class]="
+          stock.isPositive
+            ? 'pi-arrow-up text-green-500'
+            : 'pi-arrow-down text-red-500'
+        "
+        style="font-size: 3rem"
+      ></i>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      type="button"
+      [routerLink]="['sentiment', stock.code]"
+      class="p-button-raised p-button-secondary p-button-text font-semibold"
+    >
+      <span class="vertical-align-top"
+        >Go to social sentiment details &nbsp; &nbsp; &nbsp;</span
+      >
+      <span class="vertical-align-bottom"
+        ><i class="pi pi-arrow-circle-right text-2xl vertical-align-bottom"></i
+      ></span>
+    </button>
+  </ng-template>
+</p-card>

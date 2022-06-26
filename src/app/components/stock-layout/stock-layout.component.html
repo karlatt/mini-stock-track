@@ -1,0 +1,44 @@
+<div class="card border-round border-1 border-gray-400 p-3">
+  <h2 class="text-center vertical-align-text-top">Stock Tracking</h2>
+  <div class="field grid">
+    <div class="col-3">
+      <span class="p-float-label">
+        <input
+          pInputText
+          type="text"
+          id="symbol"
+          [(ngModel)]="code"
+          [pattern]="codePattern"
+          aria-describedby="help-txt"
+          #codeName="ngModel"
+          [ngClass]="{ 'ng-invalid ng-dirty': codeName.errors }"
+        />
+        <label for="symbol">
+          {{ codeName.errors ? "5 letters (no number) max" : "Symbol" }}</label
+        >
+      </span>
+      <small class="font-italic font-semibold mt-5" id="help-txt"
+        >Enter the symbol of a stock to track (e.g : AAPL,TSLA,GOOGL,...)</small
+      >
+    </div>
+    <div class="col-9">
+      <button
+        pButton
+        class="p-button-raised p-button-secondary p-button-text"
+        label="Search"
+        icon="pi pi-search"
+        [disabled]="isLoading||!code||codeName.errors"
+        [loading]="isLoading"
+        (click)="sendCode()"
+      ></button>
+    </div>
+  </div>
+</div>
+<div class="grid mt-1">
+  <app-stock-detail class="col-12 md:col-6 lg:col-4"
+    *ngFor="let stock of stocks$ | async"
+    [stock]="stock"
+    (stockRemover)="removeFromTrackedData($event)"
+  ></app-stock-detail>
+</div>
+<p-toast></p-toast>
